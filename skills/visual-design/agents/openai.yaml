@@ -1,0 +1,6 @@
+interface:
+  display_name: "视觉设计工坊"
+  short_description: "结合竞品研究进行多平台视觉设计，按用途选组件、确认方向并完成实现和验收"
+
+policy:
+  allow_implicit_invocation: true
