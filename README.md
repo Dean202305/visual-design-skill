@@ -82,6 +82,21 @@ flowchart LR
 
 ## 使用示例
 
+[查看完整的 8 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
+
+| 场景 | 示例重点 |
+| --- | --- |
+| [求职助手桌面工作台](docs/examples.md#case-1) | 先出图，再实现；逐项保留筛选、任务和记录功能 |
+| [运营数据后台](docs/examples.md#case-2) | 指标、筛选与图表的信息层级 |
+| [品牌官网与动效](docs/examples.md#case-3) | 竞品研究、品牌表达与响应式实现 |
+| [iOS / Android 原生应用](docs/examples.md#case-4) | 统一品牌，遵守平台交互习惯 |
+| [Figma 设计与交接](docs/examples.md#case-5) | 组件状态、设计变量和开发规格 |
+| [报告与演示文稿](docs/examples.md#case-6) | 数据叙事、可编辑文件与渲染检查 |
+| [海报与社交图片](docs/examples.md#case-7) | 构图、字体层级和多尺寸适配 |
+| [项目内可复用组件](docs/examples.md#case-8) | 组件 API、状态映射和可运行示例 |
+
+下面展示不同工具的调用写法；详细案例使用自然语言，可按宿主替换调用入口。
+
 Codex：
 
 ```text
