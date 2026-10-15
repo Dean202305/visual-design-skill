@@ -17,7 +17,7 @@ PRIVATE = {
 }
 
 
-def validate(root):
+def validate(root, profile="portable"):
     errors, links, files = [], 0, 0
     entry = root / "SKILL.md"
     if not entry.is_file():
@@ -32,7 +32,27 @@ def validate(root):
             errors.append("Skill name must match its folder")
         if not re.search(r"(?m)^description:\s*\S.+$", frontmatter[1]):
             errors.append("Missing nonempty description")
-    for expected in ["agents/openai.yaml", "assets/templates/design-brief.md", "assets/templates/competitive-review.md", "assets/templates/component-spec.md"]:
+        fields = dict(re.findall(r"(?m)^([a-z][a-z0-9_-]*):[ \t]*(.*)$", frontmatter[1]))
+        common = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
+        workbuddy = {"display_name", "display_name_en", "description_zh", "description_en", "version", "author"}
+        extras = set(fields) - common - (workbuddy if profile == "workbuddy" else set())
+        if extras:
+            errors.append("Nonportable frontmatter fields: " + ", ".join(sorted(extras)))
+        description = fields.get("description", "")
+        if description.startswith('"'):
+            try:
+                description = json.loads(description)
+            except json.JSONDecodeError:
+                errors.append("Invalid quoted description")
+        if not 1 <= len(description) <= 1024:
+            errors.append("Description must have 1–1024 characters")
+        if name and (name[1].startswith("-") or name[1].endswith("-") or "--" in name[1]):
+            errors.append("Invalid skill name separators")
+        if profile == "workbuddy":
+            for field in ["description_zh", "description_en", "version", "author"]:
+                if not fields.get(field):
+                    errors.append("Missing WorkBuddy field: " + field)
+    for expected in ["assets/templates/design-brief.md", "assets/templates/competitive-review.md", "assets/templates/component-spec.md"]:
         if not (root / expected).is_file():
             errors.append("Missing required resource: " + expected)
     if list(root.rglob("SKILL.md")) != [entry]:
@@ -79,8 +99,9 @@ def validate(root):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--profile", choices=["portable", "workbuddy"], default="portable")
     args = parser.parse_args()
-    result = validate(args.root.resolve())
+    result = validate(args.root.resolve(), args.profile)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result["ok"] else 1
 
