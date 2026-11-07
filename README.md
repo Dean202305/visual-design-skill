@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | Codex | 克隆仓库后运行下方安装器，或使用其 Skill 安装功能选择 `skills/visual-design` | `$visual-design` |
 | Claude Code | 安装到项目或个人 `.claude/skills` | `/visual-design` |
-| WorkBuddy | 下载 `visual-design-workbuddy-v1.1.0.zip`，在技能界面选择“添加技能 → 上传技能” | 选择技能，或描述设计任务 |
+| WorkBuddy | 下载当前 Release 的 WorkBuddy 专用 ZIP，在技能界面选择“添加技能 → 上传技能” | 选择技能，或描述设计任务 |
 | 其他 Agent Skills 工具 | 解压 Portable ZIP 到该工具规定的技能目录；也可使用通用目录安装 | 按宿主入口调用 |
 | 只能读取文件的 Agent | 提供解压后的目录，要求先读取 SKILL.md 和相关参考 | 普通对话使用，不保证自动发现 |
 
@@ -82,7 +82,7 @@ flowchart LR
 
 ## 使用示例
 
-[查看完整的 8 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
+[查看完整的 9 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
 
 | 场景 | 示例重点 |
 | --- | --- |
@@ -94,6 +94,7 @@ flowchart LR
 | [报告与演示文稿](docs/examples.md#case-6) | 数据叙事、可编辑文件与渲染检查 |
 | [海报与社交图片](docs/examples.md#case-7) | 构图、字体层级和多尺寸适配 |
 | [项目内可复用组件](docs/examples.md#case-8) | 组件 API、状态映射和可运行示例 |
+| [Liquid Glass 材质修正](docs/examples.md#case-9) | 四层构建、背景折射验证与兼容降级 |
 
 下面展示不同工具的调用写法；详细案例使用自然语言，可按宿主替换调用入口。
 

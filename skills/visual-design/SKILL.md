@@ -3,7 +3,7 @@ name: visual-design
 description: "设计和改进多平台 UI/UX 及视觉产物：结合需求做设计竞品分析、按用途选组件、确认方向、实现代码或原生文件并预览验收。用于 Web、移动端、原生与桌面界面、Figma、图片/视频、图表、文档、幻灯片和表格的视觉制作。纯后端、文件管理和不涉及呈现的数据分析不触发。"
 metadata:
   author: "Dean202305"
-  version: "1.1.0"
+  version: "1.1.1"
 ---
 
 # 视觉设计工坊
@@ -41,6 +41,7 @@ metadata:
 | --- | --- |
 | 根据需求搜索同类产品，比较设计、交互逻辑和界面样式 | [竞品分析](references/competitive-analysis.md) |
 | 多平台界面、原生控件、移动适配 | [平台适配](references/platforms.md) |
+| Liquid Glass、玻璃折射与降级验证 | [四层玻璃材质](references/liquid-glass.md) |
 | 寻找合适组件、动效与页面参考 | [六站来源与采用规则](references/sources.md) |
 | Figma、图片/视频、图表、Word/PDF、幻灯片、表格、在线文档 | [产物实施模块](references/artifacts.md) |
 | 设计约定、组件复用与官方技术入口 | [技术与模板索引](references/resources.md) |
