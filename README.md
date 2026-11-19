@@ -20,6 +20,19 @@ python3 skills/visual-design/scripts/blueprint.py import linear.app --project "/
 
 导入到 `design-references/linear.app/`，同时保留许可与来源，不覆盖根目录 DESIGN.md。名称以目录为准；选定前先比较用途、平台和信息密度，避免只按品牌名选风格。
 
+## 所有界面项目的强制细节
+
+[完整界面规范](skills/visual-design/references/interface-craft.md) 已作为用户约定接入选型、实施与验收，优先于蓝图默认值：
+
+- 微明度分层替代普通 1px 边框；暗色模式各角色的 `font-weight` 数值减 40，核对实际字体支持。
+- 输入框通过同色系双环阴影和表面加深表达聚焦；保留可辨认的键盘焦点。
+- 流式新增文字由轻微模糊迅速对焦，相邻字素错开几十毫秒；减少动态效果时直接清晰显示。
+- 变化数字使用 `tabular-nums` 并按位数预留空间；行内小图标下移 `0.125em`。
+- 展开使用 `grid-template-rows: 0fr` → `1fr`；正文使用 `text-wrap: pretty`，配合实际内容检查末行。
+- 拖拽松手立即定住，不回弹；点赞和成功对勾短促回弹。复制真实成功后显示对勾，2500ms 后恢复，重复操作和卸载都清理旧计时。
+
+字体能力、浏览器兼容和系统可访问性条件要如实记录。以上为已确认的项目规范，不声明为某家公司的官方设计系统。
+
 ## 下载与安装
 
 [下载当前发布包](https://github.com/Dean202305/visual-design-skill/releases/latest) · [兼容依据与验证范围](docs/compatibility.md)
@@ -98,7 +111,7 @@ flowchart LR
 
 ## 使用示例
 
-[查看完整的 10 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
+[查看完整的 11 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
 
 | 场景 | 示例重点 |
 | --- | --- |
@@ -112,6 +125,7 @@ flowchart LR
 | [项目内可复用组件](docs/examples.md#case-8) | 组件 API、状态映射和可运行示例 |
 | [Liquid Glass 材质修正](docs/examples.md#case-9) | 四层构建、背景折射验证与兼容降级 |
 | [设计蓝图与反模板审查](docs/examples.md#case-10) | awesome-design-md 选型、Impeccable 检查与 DESIGN.md 适配 |
+| [界面层次与交互细节](docs/examples.md#case-11) | 微明度、字重、晕开、聚焦与不同反馈节奏 |
 
 下面展示不同工具的调用写法；详细案例使用自然语言，可按宿主替换调用入口。
 
