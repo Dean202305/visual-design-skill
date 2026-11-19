@@ -4,6 +4,22 @@
 
 从用途与竞品研究出发，选择方向和组件，完成实现、预览、检查与复用交付。适用于 Web、移动端、原生与桌面界面，以及 Figma、图片 / 视频、图表、文档、幻灯片和表格的视觉制作。
 
+## 两个设计内核
+
+- **Impeccable：反模板审查。** 在预览前检查无依据的紫蓝渐变、毛玻璃、重复卡片和空洞指标布局，先修正结构与内容，再决定表现。明确选定的品牌风格或 Liquid Glass 保留并验证。本包整合设计规则，不捆绑其可执行检测器或自动开启 hook。
+- **awesome-design-md：视觉蓝图。** 随包提供 84 份固定版本的社区品牌分析，离线按需选择，映射为项目自己的设计变量和组件规范。它们是参考分析，不能称为大厂官方规范。
+
+[内核工作规则](skills/visual-design/references/design-core.md) · [84 份蓝图目录](skills/visual-design/resources/design-core/blueprints.md) · [来源与许可](skills/visual-design/resources/design-core/SOURCES.md)
+
+克隆仓库后，可列出蓝图或把选定的原始参考导入已有项目：
+
+```bash
+python3 skills/visual-design/scripts/blueprint.py list
+python3 skills/visual-design/scripts/blueprint.py import linear.app --project "/你的项目目录"
+```
+
+导入到 `design-references/linear.app/`，同时保留许可与来源，不覆盖根目录 DESIGN.md。名称以目录为准；选定前先比较用途、平台和信息密度，避免只按品牌名选风格。
+
 ## 下载与安装
 
 [下载当前发布包](https://github.com/Dean202305/visual-design-skill/releases/latest) · [兼容依据与验证范围](docs/compatibility.md)
@@ -62,9 +78,9 @@ python3 scripts/install.py --agent generic --scope directory --dest "/该工具�
 ```mermaid
 flowchart LR
     A[确认用途与限制] --> B[竞品研究与界面观察]
-    B --> C[比较设计方向]
+    B --> C[选择蓝图与比较设计方向]
     C --> D[确认后选择组件与实现]
-    D --> E[实际预览]
+    D --> E[反模板检查与实际预览]
     E --> F[确认后检查修正]
     F --> G[交付与项目内复用]
 ```
@@ -73,7 +89,7 @@ flowchart LR
 
 - **竞品**：按需求寻找真实产品，比较信息结构、交互逻辑和界面样式，保留来源与观察范围。
 - **组件**：先判断用途、动作和状态，再选实现；动画完成不能代替业务成功。
-- **视觉**：根据用途设计配色、排版与动效，不预设白蓝绿、深色、玻璃或其他固定模板。
+- **视觉**：根据用途、已选蓝图和真实内容设计，拦截无依据的紫蓝渐变、毛玻璃与其他固定模板，保留用户已明确选择的表现。
 - **平台**：保留项目技术栈、既有功能和原生交互习惯。
 - **验收**：先提供可预览产物，确认后检查相关运行路径、内容、键盘 / 触屏及资源表现。
 - **复用**：交付设计变量、变体 / API、适用状态、行为说明和可运行示例。
@@ -82,7 +98,7 @@ flowchart LR
 
 ## 使用示例
 
-[查看完整的 9 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
+[查看完整的 10 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
 
 | 场景 | 示例重点 |
 | --- | --- |
@@ -95,6 +111,7 @@ flowchart LR
 | [海报与社交图片](docs/examples.md#case-7) | 构图、字体层级和多尺寸适配 |
 | [项目内可复用组件](docs/examples.md#case-8) | 组件 API、状态映射和可运行示例 |
 | [Liquid Glass 材质修正](docs/examples.md#case-9) | 四层构建、背景折射验证与兼容降级 |
+| [设计蓝图与反模板审查](docs/examples.md#case-10) | awesome-design-md 选型、Impeccable 检查与 DESIGN.md 适配 |
 
 下面展示不同工具的调用写法；详细案例使用自然语言，可按宿主替换调用入口。
 
@@ -132,7 +149,9 @@ skills/visual-design/    # 唯一的通用技能核心
   agents/openai.yaml    # 可选 Codex 界面元数据
   references/
   assets/templates/
+  resources/design-core/ # 固定版本的 Impeccable 规则与 84 份蓝图、许可
   scripts/validate.py
+  scripts/blueprint.py    # 离线列举与导入蓝图
 scripts/                # 跨平台安装与可复现打包
 tests/                 # 临时目录内的分发回归测试
 ```

@@ -2,6 +2,7 @@
 """Validate this portable skill without third-party Python packages."""
 import argparse
 import ast
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -18,6 +19,7 @@ PRIVATE = {
 
 
 def validate(root, profile="portable"):
+    root = root.resolve()
     errors, links, files = [], 0, 0
     entry = root / "SKILL.md"
     if not entry.is_file():
@@ -65,7 +67,7 @@ def validate(root, profile="portable"):
         if path.is_symlink():
             errors.append("Unexpected symlink: " + relative)
             continue
-        if path.suffix not in {".md", ".py", ".yaml"}:
+        if path.suffix not in {".md", ".py", ".yaml"} and path.relative_to(root).as_posix() != "resources/design-core/catalog.json":
             errors.append("Unexpected publication file type: " + relative)
             continue
         text = path.read_text(encoding="utf-8")
@@ -93,6 +95,29 @@ def validate(root, profile="portable"):
                 errors.append("Link escapes skill: " + relative + " -> " + value)
             elif not target.exists():
                 errors.append("Broken link: " + relative + " -> " + value)
+    core = root / "resources/design-core"
+    manifest = core / "catalog.json"
+    if not manifest.is_file():
+        errors.append("Missing design core catalog")
+    else:
+        try:
+            data = json.loads(manifest.read_text(encoding="utf-8"))
+            if data["schema"] != 1 or not data["blueprints"]:
+                raise ValueError("Unsupported or empty catalog")
+            for relative, item in data["files"].items():
+                source = (core / relative).resolve()
+                if not source.is_relative_to(core.resolve()):
+                    raise ValueError("Catalog path leaves core")
+                content = source.read_bytes()
+                if hashlib.sha256(content).hexdigest() != item["sha256"] or len(content) != item["bytes"]:
+                    errors.append("Design source integrity: " + relative)
+            for slug, item in data["blueprints"].items():
+                if not re.fullmatch(r"[a-z0-9][a-z0-9.-]*", slug) or slug in {".", ".."}:
+                    raise ValueError("Invalid blueprint name")
+                if item["path"] not in data["files"] or item["license_path"] not in data["files"]:
+                    raise ValueError("Untracked blueprint or license")
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            errors.append("Invalid design core catalog: " + str(error))
     return {"ok": not errors, "files": files, "local_links_checked": links, "errors": errors}
 
 
