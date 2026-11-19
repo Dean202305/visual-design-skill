@@ -20,6 +20,20 @@ python3 skills/visual-design/scripts/blueprint.py import linear.app --project "/
 
 导入到 `design-references/linear.app/`，同时保留许可与来源，不覆盖根目录 DESIGN.md。名称以目录为准；选定前先比较用途、平台和信息密度，避免只按品牌名选风格。
 
+## 真实初稿、看图修正与作品事实检查
+
+借鉴 Huashu Design 的可见初稿和事实检查分工，保留本技能的 2–3 方向、先预览确认及多平台流程。为关键参考保留实际画面，用相同真实内容比较方向，在项目内连接用户选择、问题、修改和复查。[设计证据规范](skills/visual-design/references/design-evidence.md) · [记录模板](skills/visual-design/assets/templates/design-evidence.md) · [对比与采用说明](docs/huashu-design-comparison.md)
+
+Web 可用标准库工具检查宿主浏览器保存的 DOM 快照，不安装新的 Playwright/Pillow，不启动云服务或 hooks：
+
+```bash
+# 输出函数源码，用当前宿主的浏览器求值工具执行并保存返回的 JSON
+python3 skills/visual-design/scripts/design_audit.py collector
+python3 skills/visual-design/scripts/design_audit.py check "/项目证据目录/snapshot.json"
+```
+
+工具报告坏图、溢出和加载状态等有限事实；不判断美感、对比度合规或交互成功，无失败仍标为 `needs_review`。输入缺失返回错误；实际截图、交互和目标平台检查仍需执行。只在项目内保存必要记录，不自动写入全局偏好档案。
+
 ## 所有界面项目的强制细节
 
 [完整界面规范](skills/visual-design/references/interface-craft.md) 已作为用户约定接入选型、实施与验收，优先于蓝图默认值：
@@ -126,7 +140,7 @@ flowchart LR
 
 ## 使用示例
 
-[查看完整的 12 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
+[查看完整的 13 个使用案例](docs/examples.md)：每个案例包含准备材料、可复制请求和预期交付，覆盖从设计方向到代码或文件的流程。
 
 | 场景 | 示例重点 |
 | --- | --- |
@@ -142,6 +156,7 @@ flowchart LR
 | [设计蓝图与反模板审查](docs/examples.md#case-10) | awesome-design-md 选型、Impeccable 检查与 DESIGN.md 适配 |
 | [界面层次与交互细节](docs/examples.md#case-11) | 微明度、字重、晕开、聚焦与不同反馈节奏 |
 | [按用途组合交互动效](docs/examples.md#case-12) | 倾斜、抽屉、流光与按压反馈的范围及例外 |
+| [真实方向与作品检查](docs/examples.md#case-13) | 参考画面、真实初稿、项目记录和事实检查边界 |
 
 下面展示不同工具的调用写法；详细案例使用自然语言，可按宿主替换调用入口。
 
@@ -183,7 +198,7 @@ skills/visual-design/    # 唯一的通用技能核心
   scripts/validate.py
   scripts/blueprint.py    # 离线列举与导入蓝图
 scripts/                # 跨平台安装与可复现打包
-tests/                 # 临时目录内的分发回归测试
+tests/                 # 分发、蓝图与作品事实检查
 ```
 
 ## 视觉参考与公开范围

@@ -11,6 +11,12 @@
       "repository": "VoltAgent/awesome-design-md",
       "commit": "fcc70284932276d085f01ef9f83edde90b1258cb",
       "license": "MIT"
+    },
+    "huashu-design": {
+      "repository": "alchaincyf/huashu-design",
+      "commit": "e8d1148a80d5a281d4247cffe320add3df017928",
+      "license": "MIT",
+      "scope": "Workflow ideas adapted; only original LICENSE vendored. No upstream executable or style specimens bundled."
     }
   },
   "files": {
@@ -541,6 +547,12 @@
       "upstream_path": "design-md/zapier/DESIGN.md",
       "sha256": "9aee43ba8ece1b4fd0753b4cad0a29f3497331882fa376f0dd4fea8a018c32fc",
       "bytes": 22995
+    },
+    "huashu-design/LICENSE.md": {
+      "source": "huashu-design",
+      "upstream_path": "LICENSE",
+      "sha256": "6d6a2a9caf2e6d2b76974050427053b2892d8aa4c33fd168ce63a537fcee9d96",
+      "bytes": 1086
     }
   },
   "blueprints": {

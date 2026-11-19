@@ -28,4 +28,6 @@ WorkBuddy 的 [技能导入说明](https://www.codebuddy.cn/docs/workbuddy/From-
 
 本仓库测试目录安装、资源完整性、不覆盖已有文件、Unicode 路径、ZIP 结构、WorkBuddy 字段、正文一致和可复现归档。它们验证分发兼容，不代表每个客户端、模型、订阅和工具组合都实际完成过设计任务。
 
+v1.5.0 另有作品事实分析的标准库测试，以及可选浏览器集成检查 `tests/test_design_audit_browser.cjs`。集成检查复用宿主已装的 Playwright 和浏览器；可用 `VISUAL_DESIGN_PLAYWRIGHT_MODULE` 指定模块位置，`VISUAL_DESIGN_BROWSER_CHANNEL=chrome` 选择已安装的 Chrome，不自动下载依赖。该检查验证采集与分析行为，不代表技能自动获得每个宿主的浏览器权限，也不证明美感、可访问性或真实产品状态已通过。
+
 发布前在临时目录完成测试，避免修改真实宿主配置。未安装 Claude Code 的机器不能宣称已在 Claude Code 中实跑；仅按 WorkBuddy 文档生成 ZIP 也不能宣称已通过其客户端或市场审核。

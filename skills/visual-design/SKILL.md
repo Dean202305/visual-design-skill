@@ -3,7 +3,7 @@ name: visual-design
 description: "设计和改进多平台 UI/UX 及视觉产物：结合需求做设计竞品分析、按用途选组件、确认方向、实现代码或原生文件并预览验收。用于 Web、移动端、原生与桌面界面、Figma、图片/视频、图表、文档、幻灯片和表格的视觉制作。纯后端、文件管理和不涉及呈现的数据分析不触发。"
 metadata:
   author: "Dean202305"
-  version: "1.4.0"
+  version: "1.5.0"
 ---
 
 # 视觉设计工坊
@@ -34,13 +34,14 @@ metadata:
 1. 读取 [工作流程](references/workflow.md)。盘点实际输入、品牌、技术栈、模板与工具能力，明确用途后按 [竞品分析](references/competitive-analysis.md) 搜索同类产品及相关任务流程。对会改变结果的未知项分批提问，继续推进不依赖答案的研究。
 2. 结合竞品发现与 [质量标准](references/quality.md)，按 [设计内核](references/design-core.md) 选择或沿用视觉蓝图，提出符合需求的设计方向，说明借鉴点、取舍和差异。新建/重设计且方向未定时展示差异；已指定方向的局部修复延续已有决定。
 3. 涉及界面时读取 [强制细节](references/interface-craft.md) 与 [组件规范](references/components.md)；有动态表现时读取 [动效规范](references/motion.md)。根据用途、平台、内容和状态决定组件，再选来源与实现。
-4. 读取下表中的相关模块，实施，完成 Impeccable 反模板检查并提供实际预览。**只加载本次任务需要的技术参考与蓝图**，不要一次性阅读全部历史材料。
+4. 读取下表中的相关模块，实施，完成 Impeccable 反模板检查并提供实际预览。方向探索与视觉评审按 [设计证据](references/design-evidence.md) 对照真实画面；Web 可用只读事实采集辅助检查，不能把它当成美感或合规通过。**只加载本次任务需要的技术参考与蓝图**，不要一次性阅读全部历史材料。
 5. 用户确认预览后按 [验收规范](references/review.md) 检查并修正，交付实际代码/文件、复用说明、查看入口与已验证范围。
 
 ## 按需读取
 
 | 任务 | 入口 |
 | --- | --- |
+| 真实方向初稿、参考截图、看图修正与作品事实检查 | [设计证据](references/design-evidence.md) |
 | 根据需求搜索同类产品，比较设计、交互逻辑和界面样式 | [竞品分析](references/competitive-analysis.md) |
 | 反模板检查、品牌蓝图导入、项目 DESIGN.md 适配 | [设计内核](references/design-core.md) |
 | 所有界面的层次、字重、排版与交互细节 | [强制界面规范](references/interface-craft.md) |
