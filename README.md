@@ -122,7 +122,7 @@ python3 scripts/install.py --agent generic --scope directory --dest "/该工具�
 
 ### 自动更新
 
-用 **v1.8.0** 或更新版本的官方 ZIP 或安装器安装后，Visual Design 会在调用时检查最新的 GitHub 正式 Release。宿主需要能运行 Python 3.9+、访问 GitHub 并写入本地技能目录。每份安装最多每 6 小时检查一次。新版通过校验后替换技能目录，旧版留存为备份。设计记忆、改稿记录和 PPT 模板索引保存在独立的本机记忆目录。
+从 **v1.8.1** 起，每次调用 Visual Design 都先检查 GitHub 最新正式 Release，等检查和可能的升级结束后再开始设计。检查需要 Python 3.9+ 和 GitHub 网络访问。官方安装包或安装器创建且可写的标准副本，可在新版通过校验后升级并备份旧版。本机自定义副本可以查询版本，继续由本机维护。设计记忆、改稿记录和 PPT 模板索引保存在独立的本机记忆目录。
 
 已经通过 ZIP 或安装器安装旧版的电脑，可用新版包内的脚本对原目录做一次接入。以下命令在新版 Portable ZIP 解压后的 `visual-design` 目录运行，示例是 Codex 的用户安装路径：
 

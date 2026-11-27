@@ -70,14 +70,14 @@ class AutoUpdateTests(unittest.TestCase):
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(content)
 
-    def test_legacy_connects_once_then_auto_updates_and_throttles(self):
+    def test_legacy_connects_once_then_detects_new_release_despite_old_check_marker(self):
         old, first, second = '1.7.0', version(), '2.1.0'
         archive = release_zip(old, 'portable', legacy=True)
         self.install(archive)
         self.publish(old, 'portable', archive)
         self.publish(first, 'portable', release_zip(first, 'portable'), latest=True)
         self.assertEqual(updater.update(self.root)['status'], 'unmanaged')
-        self.fetch.assert_not_called()
+        self.fetch.assert_called_once()
         memory = self.root.parents[2] / '.visual-design' / 'memory' / 'preferences.json'
         memory.parent.mkdir(parents=True)
         memory.write_text('private preference', encoding='utf-8')
@@ -88,13 +88,19 @@ class AutoUpdateTests(unittest.TestCase):
         self.assertEqual(updater.identity(self.root), (first, 'portable'))
 
         self.publish(second, 'portable', release_zip(second, 'portable'), latest=True)
-        self.fetch.reset_mock()
-        self.assertEqual(updater.update(self.root)['status'], 'cached')
-        self.fetch.assert_not_called()
-        (updater.state_path(self.root) / 'last-check').unlink()
+        (updater.state_path(self.root) / 'last-check').touch()
         self.assertEqual(updater.update(self.root)['status'], 'updated')
         self.assertEqual(updater.identity(self.root), (second, 'portable'))
         self.assertEqual(memory.read_text(encoding='utf-8'), 'private preference')
+
+    def test_each_invocation_checks_live_even_when_current(self):
+        archive = release_zip(version(), 'portable')
+        self.install(archive)
+        self.publish(version(), 'portable', archive, latest=True)
+        self.assertEqual(updater.update(self.root)['status'], 'current')
+        self.assertEqual(updater.update(self.root)['status'], 'current')
+        self.assertEqual([call.args[0] for call in self.fetch.call_args_list], [f'{updater.RELEASES}/latest'] * 2)
+        self.assertFalse(updater.state_path(self.root).exists())
 
     def test_workbuddy_keeps_its_installed_layout_and_metadata(self):
         profile = 'workbuddy'
@@ -158,10 +164,11 @@ class AutoUpdateTests(unittest.TestCase):
 
     def test_concurrent_updater_skips_the_same_installation(self):
         self.install(release_zip(version(), 'portable'))
+        self.publish('2.1.0', 'portable', release_zip('2.1.0', 'portable'), latest=True)
         with updater.update_lock(updater.state_path(self.root)) as acquired:
             self.assertTrue(acquired)
             self.assertEqual(updater.update(self.root)['status'], 'busy')
-        self.fetch.assert_not_called()
+        self.fetch.assert_called_once()
 
     @unittest.skipUnless(shutil.which('git'), 'Git unavailable')
     def test_repository_managed_dist_is_not_replaced(self):
@@ -169,8 +176,9 @@ class AutoUpdateTests(unittest.TestCase):
         repo = self.root.parents[2]
         subprocess.run(['git', 'init', '-q', str(repo)], check=True, capture_output=True)
         subprocess.run(['git', '-C', str(repo), 'add', str(self.root)], check=True, capture_output=True)
+        self.publish('2.1.0', 'portable', release_zip('2.1.0', 'portable'), latest=True)
         self.assertEqual(updater.update(self.root)['status'], 'git_managed')
-        self.fetch.assert_not_called()
+        self.fetch.assert_called_once()
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ Claude Code 路径与 `/名称` 调用依据 [官方技能文档](https://code.c
 
 WorkBuddy 的 [技能导入说明](https://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Skills-Market) 和 [开放平台格式](https://open.workbuddy.cn/docs/skill) 是本包适配依据。没有猜测它的隐藏本地安装路径，也没有自动提交到其技能市场。
 
-v1.8.0 开始，两种包都内置相同的 [GitHub 更新器](../skills/visual-design/references/auto-update.md)。运行条件是 Python 3.9+、网络及已安装目录的写权限。技能在调用时检查，WorkBuddy 导入副本还取决于客户端是否保留包内容并提供它的原始可写目录。[首次接入方式](../README.md#自动更新)
+两种包都内置相同的 [GitHub 更新器](../skills/visual-design/references/auto-update.md)。从 v1.8.1 起，每次调用都先检查更新，结束后才开始设计。检查需要 Python 3.9+ 和网络，升级还需要目录写权限。WorkBuddy 导入副本的升级取决于客户端是否保留包内容并提供它的原始可写目录。[首次接入方式](../README.md#自动更新)
 
 ## 一份设计规范，两个归档布局
 

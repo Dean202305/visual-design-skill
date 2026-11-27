@@ -22,7 +22,6 @@ NAME = "visual-design"
 REPO = "Dean202305/visual-design-skill"
 RELEASES = f"https://api.github.com/repos/{REPO}/releases"
 MANIFEST = "release-manifest.json"
-CHECK_INTERVAL = 6 * 60 * 60
 MAX_DOWNLOAD = 16 * 1024 * 1024
 MAX_UNPACKED = 64 * 1024 * 1024
 VERSION = r"[0-9]{1,6}\.[0-9]{1,6}\.[0-9]{1,6}"
@@ -236,16 +235,17 @@ def stage_and_replace(root, directory, bundle, version, profile, expected, insta
 def update(root, mode="auto"):
     if mode == "auto" and os.environ.get("VISUAL_DESIGN_AUTO_UPDATE") == "0":
         return {"status": "disabled"}
-    if root.is_symlink():
-        return {"status": "unmanaged", "reason": "This installation is a symlink"}
+    is_symlink = root.is_symlink()
     root = root.resolve(strict=True)
-    installed, profile = identity(root)
-    has_manifest = (root / MANIFEST).is_file()
-    result = {"version": installed}
+    installed, _ = identity(root)
+    release = get_release()
+    latest = release["tag_name"][1:]
+    result = {"version": installed, "latest": latest}
+    if version_key(latest) <= version_key(installed):
+        return dict(result, status="current")
     if mode == "check":
-        latest = get_release()["tag_name"][1:]
-        return dict(result, status="available" if version_key(latest) > version_key(installed) else "current", latest=latest)
-    if not has_manifest and mode == "auto":
+        return dict(result, status="available")
+    if is_symlink or (mode == "auto" and not (root / MANIFEST).is_file()):
         return dict(result, status="unmanaged")
     if git_managed(root):
         return dict(result, status="git_managed")
@@ -253,20 +253,17 @@ def update(root, mode="auto"):
     with update_lock(directory) as acquired:
         if not acquired:
             return dict(result, status="busy")
-        marker = directory / "last-check"
-        if mode == "auto" and marker.is_file() and 0 <= time.time() - marker.stat().st_mtime < CHECK_INTERVAL:
-            return dict(result, status="cached")
-        marker.touch()
-        release = get_release()
-        latest = release["tag_name"][1:]
-        result["latest"] = latest
+        installed, profile = identity(root)
+        result["version"] = installed
         if version_key(latest) <= version_key(installed):
             return dict(result, status="current")
-        if has_manifest:
+        if (root / MANIFEST).is_file():
             expected = read_manifest(root, installed, profile)
-        else:
+        elif mode == "now":
             previous = archive_files(download(get_release(installed), profile), profile)
             expected = file_digests(previous.items())
+        else:
+            return dict(result, status="unmanaged")
         if not matches_tree(root, expected):
             return dict(result, status="local_changes")
         bundle = archive_files(download(release, profile), profile)
