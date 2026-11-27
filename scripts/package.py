@@ -6,7 +6,7 @@ import json
 import tempfile
 import zipfile
 from pathlib import Path
-from skill_tools import ROOT, NAME, check_skill, skill_files, version, workbuddy_entry
+from skill_tools import ROOT, NAME, check_skill, release_manifest, skill_files, version, workbuddy_entry
 
 
 def build(output, profiles=('portable', 'workbuddy')):
@@ -27,6 +27,7 @@ def build(output, profiles=('portable', 'workbuddy')):
                 if relative.as_posix() == 'SKILL.md':
                     content = workbuddy_entry(content.decode('utf-8')).encode('utf-8')
             entries.append((relative.as_posix(), content))
+        entries.append(release_manifest(entries, profile))
         with tempfile.TemporaryDirectory(prefix='visual-design-package-check-') as temporary:
             staged = Path(temporary) / NAME
             for relative, content in entries:

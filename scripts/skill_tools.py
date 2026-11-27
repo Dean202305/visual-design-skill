@@ -16,18 +16,32 @@ def version():
     return value
 
 
-def validator():
-    spec = importlib.util.spec_from_file_location('visual_design_validator', SKILL / 'scripts' / 'validate.py')
+def skill_script(name):
+    spec = importlib.util.spec_from_file_location('visual_design_' + name, SKILL / 'scripts' / (name + '.py'))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
 
 def check_skill(path=SKILL, profile='portable'):
-    result = validator().validate(Path(path).resolve(), profile)
+    path = Path(path).resolve()
+    result = skill_script('validate').validate(path, profile)
     if not result['ok']:
         raise ValueError('; '.join(result['errors']))
+    updater = skill_script('update')
+    expected_version = version()
+    if updater.identity(path) != (expected_version, profile):
+        raise ValueError('SKILL.md version or format does not match the release')
+    if (path / updater.MANIFEST).is_file():
+        expected_files = updater.read_manifest(path, expected_version, profile)
+        if not updater.matches_tree(path, expected_files):
+            raise ValueError('Packaged files do not match the release manifest')
     return result
+
+
+def release_manifest(entries, profile):
+    updater = skill_script('update')
+    return updater.MANIFEST, updater.manifest_bytes(entries, version(), profile)
 
 
 def skill_files():

@@ -60,6 +60,7 @@ def validate(root, profile="portable"):
     if list(root.rglob("SKILL.md")) != [entry]:
         errors.append("Unexpected nested skill entry")
     permitted_resources = {
+        "release-manifest.json",
         "resources/design-core/catalog.json",
         "resources/design-core/unslop/story.mjs",
         "resources/design-core/unslop/story-path.mjs",

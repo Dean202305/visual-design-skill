@@ -7,7 +7,7 @@ import shutil
 import sys
 import tempfile
 from pathlib import Path
-from skill_tools import NAME, SKILL, check_skill
+from skill_tools import NAME, SKILL, check_skill, release_manifest, skill_files
 
 
 HOST_DIRS = {'codex': '.agents', 'claude-code': '.claude'}
@@ -48,6 +48,8 @@ def install(target, dry_run=False):
     with tempfile.TemporaryDirectory(prefix='.visual-design-stage-', dir=target.parent.parent) as temporary:
         staged = Path(temporary) / NAME
         shutil.copytree(SKILL, staged, ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '.DS_Store'))
+        manifest_name, manifest = release_manifest(((path.as_posix(), data) for path, data in skill_files()), 'portable')
+        (staged / manifest_name).write_bytes(manifest)
         check_skill(staged)
         if os.path.lexists(target):
             raise ValueError('Destination appeared during installation; nothing was overwritten')

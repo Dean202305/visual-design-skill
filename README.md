@@ -69,7 +69,7 @@ python3 skills/visual-design/scripts/design_audit.py check "/项目证据目录/
 
 ## 下载与安装
 
-[下载当前发布包](https://github.com/Dean202305/visual-design-skill/releases/latest) · [兼容依据与验证范围](docs/compatibility.md)
+[下载当前发布包](https://github.com/Dean202305/visual-design-skill/releases/latest) · [旧版接入自动更新](#自动更新) · [兼容依据与验证范围](docs/compatibility.md)
 
 | 使用工具 | 推荐安装方式 | 使用方式 |
 | --- | --- | --- |
@@ -102,7 +102,7 @@ python3 scripts/install.py --agent codex --scope user
 python3 scripts/install.py --agent claude-code --scope user
 ```
 
-安装器只复制此技能，不改模型配置、API Key 或项目指令文件。目标已有同名目录时拒绝覆盖；先备份并移走旧目录后再安装。用 `--dry-run` 可先看目标位置。安装后让宿主重新加载技能或开启新会话。
+安装器把技能复制到指定目录。已有同名技能请走下方的自动更新接入流程。用 `--dry-run` 可先看目标位置。安装后让宿主重新加载技能或开启新会话。
 
 脚本使用 Python 3.9+ 标准库，无第三方 Python 依赖。Windows 可将 `python3` 换为 `py -3`。不使用脚本时，也可手动复制完整技能目录；不要只复制 SKILL.md 而漏掉参考与模板。
 
@@ -119,6 +119,20 @@ python3 scripts/install.py --agent generic --scope directory --dest "/该工具�
 ```
 
 `--dest` 是最终技能目录，安装器不猜测其他工具的发现路径。若工具不支持 Agent Skills，可让它读取 SKILL.md，再按需读取相对引用；是否可自动发现由宿主决定。
+
+### 自动更新
+
+用 **v1.8.0** 或更新版本的官方 ZIP 或安装器安装后，Visual Design 会在调用时检查最新的 GitHub 正式 Release。宿主需要能运行 Python 3.9+、访问 GitHub 并写入本地技能目录。每份安装最多每 6 小时检查一次。新版通过校验后替换技能目录，旧版留存为备份。设计记忆、改稿记录和 PPT 模板索引保存在独立的本机记忆目录。
+
+已经通过 ZIP 或安装器安装旧版的电脑，可用新版包内的脚本对原目录做一次接入。以下命令在新版 Portable ZIP 解压后的 `visual-design` 目录运行，示例是 Codex 的用户安装路径：
+
+```bash
+python3 scripts/update.py --now --skill-dir "$HOME/.agents/skills/visual-design"
+```
+
+把路径换成原技能目录即可用于 Claude Code、旧版 Codex 路径或其他本地 Agent。WorkBuddy 可在技能页导入一次新版专用 ZIP，后续更新取决于客户端是否提供原始可写目录和脚本权限。也可使用 WorkBuddy 的 [项目技能目录](https://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Project)，通过通用安装器把 Portable 版放在项目的 `.codebuddy/skills/visual-design`。
+
+`--check` 只查看版本，`--now` 立即检查并更新。设置 `VISUAL_DESIGN_AUTO_UPDATE=0` 可暂停自动检查。Git 跟踪的副本随其仓库更新，自定义副本保留现有文件。[更新与恢复说明](skills/visual-design/references/auto-update.md)
 
 ## 工作逻辑
 
