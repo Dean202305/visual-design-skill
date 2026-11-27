@@ -7,3 +7,5 @@
 本仓库随包分发明确许可的静态设计参考：Impeccable 的 craft floor 原文使用 Apache-2.0；awesome-design-md 的 84 份 DESIGN.md 使用 MIT。各自的许可与上游声明随文件保留，详见 [来源清单](skills/visual-design/resources/design-core/SOURCES.md)。这些文件继续适用原许可，不受本仓库原创内容未指定统一许可证的表述限制。它们不代表品牌官方背书，也不授予品牌资产或专有字体的额外权利。
 
 v1.5.0 的设计证据工作法参考 Huashu Design（花叔）的方向探索、打磨环及事实检查分工；工具为独立实现。其 MIT 许可与固定来源见 [适配声明](skills/visual-design/resources/design-core/huashu-design/ADAPTATION.md)。本仓库不包含其演示贴纸、风格样张、原版脚本、云工具或 hooks。
+
+v1.6.0 的界面精修流程及可选视频渲染器改编自 Damir Sokolovsky（@heydamir）的 unslop，适用 CC BY 4.0。[改编说明与许可](skills/visual-design/resources/design-core/unslop/ADAPTATION.md)。

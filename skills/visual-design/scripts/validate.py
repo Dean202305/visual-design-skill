@@ -59,6 +59,11 @@ def validate(root, profile="portable"):
             errors.append("Missing required resource: " + expected)
     if list(root.rglob("SKILL.md")) != [entry]:
         errors.append("Unexpected nested skill entry")
+    permitted_resources = {
+        "resources/design-core/catalog.json",
+        "resources/design-core/unslop/story.mjs",
+        "resources/design-core/unslop/story-path.mjs",
+    }
     for path in sorted(root.rglob("*")):
         if not path.is_file() or "__pycache__" in path.parts:
             continue
@@ -67,7 +72,7 @@ def validate(root, profile="portable"):
         if path.is_symlink():
             errors.append("Unexpected symlink: " + relative)
             continue
-        if path.suffix not in {".md", ".py", ".yaml"} and path.relative_to(root).as_posix() != "resources/design-core/catalog.json":
+        if path.suffix not in {".md", ".py", ".yaml"} and path.relative_to(root).as_posix() not in permitted_resources:
             errors.append("Unexpected publication file type: " + relative)
             continue
         text = path.read_text(encoding="utf-8")

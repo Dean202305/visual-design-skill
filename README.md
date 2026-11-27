@@ -4,8 +4,9 @@
 
 从用途与竞品研究出发，选择方向和组件，完成实现、预览、检查与复用交付。适用于 Web、移动端、原生与桌面界面，以及 Figma、图片 / 视频、图表、文档、幻灯片和表格的视觉制作。
 
-## 两个设计内核
+## 设计内核
 
+- **unslop** 负责已有界面的诊断、分层改稿与可选迭代短片。[改稿流程](skills/visual-design/references/unslop.md)
 - **Impeccable：反模板审查。** 在预览前检查无依据的紫蓝渐变、毛玻璃、重复卡片和空洞指标布局，先修正结构与内容，再决定表现。明确选定的品牌风格或 Liquid Glass 保留并验证。本包整合设计规则，不捆绑其可执行检测器或自动开启 hook。
 - **awesome-design-md：视觉蓝图。** 随包提供 84 份固定版本的社区品牌分析，离线按需选择，映射为项目自己的设计变量和组件规范。它们是参考分析，不能称为大厂官方规范。
 
@@ -20,6 +21,10 @@ python3 skills/visual-design/scripts/blueprint.py import linear.app --project "/
 
 导入到 `design-references/linear.app/`，同时保留许可与来源，不覆盖根目录 DESIGN.md。名称以目录为准；选定前先比较用途、平台和信息密度，避免只按品牌名选风格。
 
+## 设计记忆
+
+启用后会按项目和媒介回顾已确认的偏好，并逐轮记录用户反馈、实际修改和验收状态。PPT 可参考已授权的模板盘点。数据默认写入本机用户目录，访问同一目录的宿主可以继续使用。[设计记忆用法](skills/visual-design/references/design-memory.md)
+
 ## 真实初稿、看图修正与作品事实检查
 
 借鉴 Huashu Design 的可见初稿和事实检查分工，保留本技能的 2–3 方向、先预览确认及多平台流程。为关键参考保留实际画面，用相同真实内容比较方向，在项目内连接用户选择、问题、修改和复查。[设计证据规范](skills/visual-design/references/design-evidence.md) · [记录模板](skills/visual-design/assets/templates/design-evidence.md) · [对比与采用说明](docs/huashu-design-comparison.md)
@@ -32,7 +37,7 @@ python3 skills/visual-design/scripts/design_audit.py collector
 python3 skills/visual-design/scripts/design_audit.py check "/项目证据目录/snapshot.json"
 ```
 
-工具报告坏图、溢出和加载状态等有限事实；不判断美感、对比度合规或交互成功，无失败仍标为 `needs_review`。输入缺失返回错误；实际截图、交互和目标平台检查仍需执行。只在项目内保存必要记录，不自动写入全局偏好档案。
+工具报告坏图、溢出和加载状态等有限事实；不判断美感、对比度合规或交互成功，无失败仍标为 `needs_review`。输入缺失返回错误；实际截图、交互和目标平台检查仍需执行。DOM 检查结果按项目保存。偏好与改稿记录沿用用户启用的设计记忆。
 
 ## 所有界面项目的强制细节
 
@@ -206,3 +211,7 @@ tests/                 # 分发、蓝图与作品事实检查
 [Aceternity UI](https://ui.aceternity.com/)、[Swishy](https://www.swishy.ai/)、[Anime.js](https://animejs.com/)、[MotionSites](https://motionsites.ai/)、[React Bits](https://reactbits.dev/)、[Uiverse](https://uiverse.io/elements)。它们用于组件和表现参考；竞品仍从具体产品需求搜索，采用资源前核对实现、依赖和使用条件。
 
 本仓库发布统一规范和原创模板，未打包受限第三方运行时、商业插件资料、用户项目、账号配置或本机备份。实际制作依赖所在环境具备对应工具，本机已有完整整合版不会被自动替换。详见 [公开版与来源](skills/visual-design/references/provenance.md)。
+
+### 既有界面的九轮精修
+
+从实际页面诊断模板感，再决定整屏、局部或仅提建议。按需交付 10 秒内的本地迭代短片。实现与使用示例见 [改稿流程](skills/visual-design/references/unslop.md) 和 [改稿示例](docs/examples.md#unslop-review)。

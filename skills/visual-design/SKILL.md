@@ -1,9 +1,9 @@
 ---
 name: visual-design
-description: "设计和改进多平台 UI/UX 及视觉产物：结合需求做设计竞品分析、按用途选组件、确认方向、实现代码或原生文件并预览验收。用于 Web、移动端、原生与桌面界面、Figma、图片/视频、图表、文档、幻灯片和表格的视觉制作。纯后端、文件管理和不涉及呈现的数据分析不触发。"
+description: "设计和改进多平台 UI/UX 及视觉产物：诊断已有界面的模板感并按需九轮精修，结合需求做设计竞品分析、按用途选组件、确认方向、实现代码或原生文件并预览验收。用于 Web、移动端、原生与桌面界面、Figma、图片/视频、图表、文档、幻灯片和表格的视觉制作，也用于记住设计偏好、整理改稿及参考已授权 PPT 模板。纯后端、文件管理和不涉及呈现的数据分析不触发。"
 metadata:
   author: "Dean202305"
-  version: "1.5.0"
+  version: "1.7.0"
 ---
 
 # 视觉设计工坊
@@ -31,6 +31,10 @@ metadata:
 
 ## 执行流程
 
+开始设计时按项目和媒介查阅 [设计记忆](references/design-memory.md)。检测到已启用的本地记忆后，每轮改稿记录反馈、实际修改与验收结果。制作 PPT 时按用途参考已授权模板。
+
+已有界面的去 AI 味、整体精修或改稿评审，先读 [unslop 改稿流程](references/unslop.md)，按真实画面判断改动幅度并与以下步骤衔接。只有用户提出要视频或准备分享时才生成 10 秒内的本地改稿短片。
+
 1. 读取 [工作流程](references/workflow.md)。盘点实际输入、品牌、技术栈、模板与工具能力，明确用途后按 [竞品分析](references/competitive-analysis.md) 搜索同类产品及相关任务流程。对会改变结果的未知项分批提问，继续推进不依赖答案的研究。
 2. 结合竞品发现与 [质量标准](references/quality.md)，按 [设计内核](references/design-core.md) 选择或沿用视觉蓝图，提出符合需求的设计方向，说明借鉴点、取舍和差异。新建/重设计且方向未定时展示差异；已指定方向的局部修复延续已有决定。
 3. 涉及界面时读取 [强制细节](references/interface-craft.md) 与 [组件规范](references/components.md)；有动态表现时读取 [动效规范](references/motion.md)。根据用途、平台、内容和状态决定组件，再选来源与实现。
@@ -48,6 +52,7 @@ metadata:
 | 3D 倾斜、胶囊形变、共享元素、磁吸图表、抽屉、流光、交错列表与按压按钮 | [八种交互动效](references/motion-recipes.md) |
 | 多平台界面、原生控件、移动适配 | [平台适配](references/platforms.md) |
 | Liquid Glass、玻璃折射与降级验证 | [四层玻璃材质](references/liquid-glass.md) |
+| 查阅偏好、整理改稿记录或使用 PPT 私有参考 | [设计记忆](references/design-memory.md) |
 | 寻找合适组件、动效与页面参考 | [六站来源与采用规则](references/sources.md) |
 | Figma、图片/视频、图表、Word/PDF、幻灯片、表格、在线文档 | [产物实施模块](references/artifacts.md) |
 | 设计约定、组件复用与官方技术入口 | [技术与模板索引](references/resources.md) |
@@ -55,7 +60,7 @@ metadata:
 
 ## 技术与工具边界
 
-本包的 references 是设计工作流，assets/templates 是项目工作底稿；resources/design-core 是保留许可与固定版本的设计规则和蓝图。按需读取，不批量加载。第三方可执行工具、组件、字体、付费素材、插件与运行时不随包分发，采用前检查当前官方文档、具体许可和现有项目依赖。
+本包的 references 是设计工作流，assets/templates 是项目工作底稿；resources/design-core 是保留许可与固定版本的设计规则和蓝图。按需读取，不批量加载。短片渲染脚本随包提供，浏览器、编码器、组件、字体、付费素材、插件与运行时按需由项目提供，采用前检查当前官方文档、具体许可和现有项目依赖。
 
 文件、Figma、图像或视频任务需要对应工具实际可用。先核对当前工具 schema 与前置条件；缺少连接器或运行环境时，完成可审阅部分，明确不能执行的步骤，不声称已写入、渲染或发布。
 

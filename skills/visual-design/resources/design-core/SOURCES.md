@@ -12,3 +12,5 @@ awesome-design-md 是社区分析，不能表述为大厂官方发布；其中�
 ## 工作方法借鉴
 
 v1.5.0 另参考 **Huashu Design / 花叔** 的真实初稿、看图打磨与事实检查分工，固定提交 `e8d1148a80d5a281d4247cffe320add3df017928`。只随包保留未修改的 MIT 许可，新增工具为独立实现，不含其原版脚本或样张。[具体适配及来源](huashu-design/ADAPTATION.md) 明确采用与舍弃内容；catalog.json 校验新增许可，不改变已有 84 份蓝图。
+
+unslop 提供诊断分流与逐层精修方法，视频渲染器经过本地化适配。[原始提交、作者与许可](unslop/ADAPTATION.md)。

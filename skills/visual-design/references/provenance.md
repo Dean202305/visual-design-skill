@@ -25,3 +25,5 @@ v1.5.0 借鉴 Huashu Design 的可见初稿、看图打磨与事实检查分工�
 ## 跨 Agent 发布
 
 通用内容采用 Agent Skills 的 SKILL.md 与相对资源结构。Codex 界面元数据是可选附件，WorkBuddy 扩展字段由打包器生成，不维护分叉的设计流程。Python 安装与打包脚本只依赖标准库；实际使用设计规范不强制安装 Python。
+
+v1.6.0 融合 Damir Sokolovsky 的 unslop 改稿方法与可选的短片渲染器。[固定提交、改编和 CC BY 4.0 许可](../resources/design-core/unslop/ADAPTATION.md)。
